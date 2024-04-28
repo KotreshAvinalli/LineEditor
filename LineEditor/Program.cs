@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ class TextEditor
         this.lines = new List<string>();
     }
 
+    //Load the file and add lines into list
     public async Task<bool> LoadFileAsync()
     {
         try
@@ -54,12 +56,14 @@ class TextEditor
         }
         return true;
     }
-
+    //Check the file extennsion. This is supported for only txt file
     private bool CheckFileExtension(string filename)
     {
         string extension = Path.GetExtension(filename);
         return string.Equals(extension, AllowedExtension, StringComparison.OrdinalIgnoreCase);
     }
+
+    //save the file with all the changes
     public async Task SaveFileAsync()
     {
         try
@@ -79,6 +83,7 @@ class TextEditor
         }
     }
 
+    //Display file : line by line
     public void DisplayFile()
     {
         for (int i = 0; i < lines.Count; i++)
@@ -87,16 +92,19 @@ class TextEditor
         }
     }
 
+    //Insert function to add lines in the file
     public async Task InsertLineAsync(int lineNumber, string text)
     {
         lines.Insert(lineNumber - 1, text);
     }
 
+    //Delete lines from the file
     public async Task DeleteLineAsync(int lineNumber)
     {
         lines.RemoveAt(lineNumber - 1);
     }
 
+    //Run the editor for input and take correpsonding actions
     public async Task RunEditorAsync()
     {
         bool fileLoaded = await LoadFileAsync();
