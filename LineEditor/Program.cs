@@ -22,6 +22,7 @@ class TextEditor
     {
         try
         {
+            //Check for the file extention and allow only .txt file
             if (!CheckFileExtension(filename))
             {
                 Console.WriteLine($"Invalid file extension. Only {AllowedExtension} files are allowed.");
@@ -34,6 +35,10 @@ class TextEditor
                 Console.WriteLine($"File size exceeds the maximum allowed size of {MaxFileSize} bytes.");
                 return false;
             }
+
+            //Similaraly, file can be run through antivirus scanner and to check for any micros if needs to omitted from file
+
+
             //Read the input file
             using (StreamReader reader = new StreamReader(filename))
             {
@@ -196,6 +201,7 @@ class Program
             Console.WriteLine("File name cannot be empty");
             return;
         }
+
         TextEditor editor = new TextEditor(filename);
         await editor.RunEditorAsync();
 
